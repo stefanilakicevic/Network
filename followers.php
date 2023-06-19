@@ -74,7 +74,7 @@
                     if (!empty($row['profile_image'])) 
                     {
                         // Ako korisnik ima sliku profila, prikazi je
-                        echo "<img src='{$row['profile_image']}' alt='Profile Image' class='profile-image' style='width: 100px'>";
+                        echo "<img src='{$row['profile_image']}' alt='Profile Image' class='profile-image' style='width: 100px;'>";
                     }
                     else 
                     {
