@@ -46,7 +46,7 @@ if($conn->multi_query($sql))
 }
 else
 {
-    header("Location: error.php?m=" . $conn->error); // ako nije, preusmeri mena error.php i ispisi gresku
+    header("Location: error.php?m=" . $conn->error); // ako nije, preusmeri me na error.php i ispisi gresku
 }
 
 

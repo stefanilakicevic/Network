@@ -38,7 +38,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") // proveravamo da li smo dosli post met
         // ovde mozemo da pokusamo da logujemo korisnika, ako svi kredencijali za logovanje se podudaraju
         $q = "SELECT * FROM `users` WHERE `username` = '$username'"; // pass je hesiran, zato ne mozemo direktno da proverimmo
         $result = $conn->query($q);
-        if($result->num_rows == 0)
+        if($result->num_rows == 0) // moramo da proverimo ako je u bazi broj redova 0, takav username ne postoji
         {
             $usernameError = "This username doesnt exist!";
         }
@@ -83,7 +83,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") // proveravamo da li smo dosli post met
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<div class="container">
+    <div class="container">
         <div class="row justify-content-center" style="margin-top: 100px;">
             <div class="col-md-6">
                 <div class="card">

@@ -116,5 +116,5 @@
     </div>
 </div>
 </body>
-<!-- prvi put kad dodjemo na stranicu register.php dolazimo GET metodom, ali cim korisnik unese podatke i klikne na submit-->
+<!-- prvi put kad dodjemo na stranicu register.php dolazimo GET metodom, ali cim korisnik unese podatke i klikne na submit to je onda POST metoda-->
 </html>

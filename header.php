@@ -20,6 +20,7 @@
                 <li><a href="profile.php">Profile</a></li>
                 <li><a href="followers.php">Connections</a></li>
                 <li><a href="logout.php">Logout</a></li>
+                <li><a href="reset_password.php">Change password</a></li>
             ';
         } 
         else 

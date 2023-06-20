@@ -1,7 +1,7 @@
 <?php 
 // ovaj fajl se odnosi na connection.php za deo ako konekcija nije uspela: header("Location: error.php?m=" . $conn->connect_error);
-// i na fajl database.php, ako upis u bazu nije izvrsen
 // s tim sto je meni zakomentarisan, ipak smo se odlucili za die, umesto header
+// i na fajl database.php, ako upis u bazu nije izvrsen
 
     $poruka = ""; // ako nemam prosledjeni parametar `m` poruka je prazna
     // da li sam dosla GET metodom i da li imam neki prosledjeni parametar `m`
