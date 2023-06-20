@@ -81,3 +81,14 @@ h1.mb-4 {
     text-align: center;
     margin-top: 50px; 
   }
+
+  .m {
+    color: blue;
+  }
+
+  .f {
+    color: pink;
+  }
+  .o {
+    color: gray;
+  }

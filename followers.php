@@ -66,6 +66,11 @@
     }
     //echo "<br>";
     //var_dump($niz2);
+
+    if(isset($_GET['id']))
+{
+    $id = $_GET['id'];
+}
 ?>
 
 
@@ -121,7 +126,9 @@
                     echo "<tr><td>";
                     if($row["full_name"] !== NULL)
                     {
-                        echo $row["full_name"];
+                        $userId = $row['id'];
+                        $profileUrl = "show_profile.php?id={$userId}";
+                        echo '<a href="' . $profileUrl . '">' . $row["full_name"] . '</a>';
                     }
                     else
                     {

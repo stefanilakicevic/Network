@@ -8,8 +8,8 @@
 
     // ako je logovan korisnik
     $id = $_SESSION["id"];
-    $firstName = $lastName = $dob = $gender = $profile_image = ""; // u ove promenljive pamtimo odgovarajuce vrednosti iz forme
-    $firstNameError = $lastNameError = $dobError = $genderError = $profileImageError = "";
+    $firstName = $lastName = $dob = $gender = $profile_image = $bio = ""; // u ove promenljive pamtimo odgovarajuce vrednosti iz forme
+    $firstNameError = $lastNameError = $dobError = $genderError = $profileImageError = $bioError = "";
     $sucMessage = "";
     $errMessage = "";
 
@@ -27,6 +27,7 @@
         $gender = $profileRow["gender"];
         $dob = $profileRow["dob"];
         $profile_image = $profileRow["profile_image"];
+        $bio = $profileRow["bio"];
     }
 
     if($_SERVER["REQUEST_METHOD"] == "POST") // proveravamo da li dolazimo na stranicu POST metodom
@@ -35,6 +36,7 @@
         $lastName = $conn->real_escape_string($_POST["last_name"]);
         $gender = $conn->real_escape_string($_POST["gender"]);
         $dob = $conn->real_escape_string($_POST["dob"]);
+        $bio = $conn->real_escape_string($_POST["bio"]);
 
         // vrsimo validaciju polja
 
@@ -104,9 +106,9 @@
             $q = "";
             if($profileRow === false) // gore smo pozvali funkciju i stavili je u promenljivu $profileRow = profileExists($id, $conn); znaci ako profil ne postoji, ubaci podatke u tabelu tj kreiraj profil
             {
-                $q = "INSERT INTO `profiles`(`first_name`, `last_name`, `gender`, `dob`, `profile_image`, `id_user`) 
+                $q = "INSERT INTO `profiles`(`first_name`, `last_name`, `gender`, `dob`, `profile_image`, `bio`, `id_user`) 
                 VALUE
-                ('$firstName', '$lastName', '$gender', '$dob', '$profile_image', $id)";
+                ('$firstName', '$lastName', '$gender', '$dob', '$profile_image', '$bio', $id)";
             }
             else // ako pofil vec postoji, izmeni profil
             {
@@ -115,7 +117,8 @@
                 `last_name` = '$lastName',
                 `gender` = '$gender',
                 `dob` = '$dob',
-                `profile_image` = '$profile_image'
+                `profile_image` = '$profile_image',
+                `bio` = '$bio'
                 WHERE `id_user` = $id
                 ";
             }
@@ -213,6 +216,11 @@
                     <?php if ($profileRow !== false && !empty($profileRow['profile_image'])) { ?> <!-- sko profil postoji i ako postoji slika -->
                         <img src="<?php echo $profileRow['profile_image']; ?>" alt="Profile Image" style="width: 25%" class="mt-2">
                     <?php } ?>
+                </div>
+                <div class="mb-3">
+                    <label for="bio" class="form-label">Biography:</label>
+                    <textarea name="bio" id="bio" class="form-control"><?php echo $bio; ?></textarea>
+                    <span class="error"><?php echo $bioError; ?></span>
                 </div>
                 <div class="mb-3">
                     <?php
