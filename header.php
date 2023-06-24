@@ -1,3 +1,6 @@
+<?php
+//require_once "profile.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +24,7 @@
                 <li><a href="followers.php">Connections</a></li>
                 <li><a href="logout.php">Logout</a></li>
                 <li><a href="reset_password.php">Change password</a></li>
+                <li><img src="' . $profile_image . '" alt="Profile Image" style="width: 25px; height: 25px;"></li>
             ';
         } 
         else 

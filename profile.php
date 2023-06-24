@@ -85,7 +85,8 @@
                     $profile_image = $destFilePath;
 
                     // Azuriramo vrednost $profileRow['profile_image'] na novu putanju slike
-                    $profileRow['profile_image'] = $profile_image; // ovako sam resila problem da kada izaberem sliku i stisnem edit, odmah mi se prikaze ta nova slika
+                    //$profileRow['profile_image'] = $profile_image; // ovako sam resila problem da kada izaberem sliku i stisnem edit, odmah mi se prikaze ta nova slika
+
                 } 
                 else 
                 {
@@ -210,12 +211,11 @@
                 </div>
                 <div class="mb-3">
                     <label for="profile_image" class="form-label">Profile image:</label>
-                    <input type="file" name="profile_image" id="profile_image" class="form-control"> <!-- Kada koristimo enctype="multipart/form-data", moramo da dodamo  <input type="file"> element u formu koji ce omoguciti korisniku da izabere fajlove za otpremanje. -->
-                    <span class="error"><?php echo $profileImageError; ?></span>
-                    <!-- Prikaz slike -->
-                    <?php if ($profileRow !== false && !empty($profileRow['profile_image'])) { ?> <!-- sko profil postoji i ako postoji slika -->
-                        <img src="<?php echo $profileRow['profile_image']; ?>" alt="Profile Image" style="width: 25%" class="mt-2">
+                    <?php if (!empty($profile_image) && file_exists($profile_image)) { ?>
+                        <img src="<?php echo $profile_image; ?>" alt="Profile Image" style="width: 25%" class="mt-2">
                     <?php } ?>
+                    <input type="file" name="profile_image" id="profile_image" class="form-control">
+                    <span class="error"><?php echo $profileImageError; ?></span>
                 </div>
                 <div class="mb-3">
                     <label for="bio" class="form-label">Biography:</label>
@@ -236,7 +236,7 @@
                         } */
                     ?>
                      <!-- <input type="submit" value="<?php //echo $poruka ?>"> -->
-                   <input type="submit" name="edit_profile" value="<?php echo ($profileRow === false) ? 'Create profile' : 'Edit profile' ?>" class="btn btn-primary">
+                   <input type="submit" name="edit_profile" value="<?php echo ($profileRow !== false) ? 'Edit profile' : 'Create profile' ?>" class="btn btn-primary">
                 </div>
             </form>
             <div>
