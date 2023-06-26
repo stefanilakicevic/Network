@@ -88,7 +88,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") // proveravamo da li smo dosli post met
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h1 class="card-title text-center">Please login</h1>
+                        <h1 class="card-title">Please login</h1>
                     </div>
                     <div class="card-body">
                         <form action="#" method="post"> <!-- forma se salje na istu stranicu, post metodom-->
@@ -103,7 +103,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") // proveravamo da li smo dosli post met
                                 <span class="error"><?php echo $passwordError; ?></span>
                             </div>
                             <div class="mb-3">
-                                <input type="submit" value="Login" class="btn btn-primary">
+                                <input type="submit" value="Login" class="btn btn-primary float-end">
                             </div>
                         </form>
                     </div>

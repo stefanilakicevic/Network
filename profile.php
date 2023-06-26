@@ -239,7 +239,7 @@
                    <input type="submit" name="edit_profile" value="<?php echo ($profileRow !== false) ? 'Edit profile' : 'Create profile' ?>" class="btn btn-primary">
                 </div>
             </form>
-            <div>
+            <div class="float-end">
                 Go back to <a href="index.php" class="btn btn-secondary">home page</a>.
             </div>
         </div>

@@ -83,12 +83,18 @@ h1.mb-4 {
   }
 
   .m {
-    color: blue;
+    color: rgb(63, 101, 204);
   }
 
   .f {
-    color: pink;
+    color: rgb(210, 70, 150);
   }
   .o {
-    color: gray;
+    color: rgb(52, 51, 51);
   }
+
+  /* Css za show_profile */
+  .container.profile-container {
+    margin-top: 100px;
+  }
+

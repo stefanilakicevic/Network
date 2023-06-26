@@ -107,7 +107,7 @@
                             <span class="error">* <?php echo $retypeError; ?></span>
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-primary" value="Register me!">
+                            <input type="submit" class="btn btn-primary float-end" value="Register me!">
                         </div>
                     </form>
                 </div>

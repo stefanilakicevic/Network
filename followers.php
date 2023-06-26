@@ -68,9 +68,9 @@
     //var_dump($niz2);
 
     if(isset($_GET['id']))
-{
-    $id = $_GET['id'];
-}
+    {
+        $id = $_GET['id'];
+    }
 ?>
 
 
@@ -89,120 +89,122 @@
 </head>
 <body>
     <div class="container" style="margin-top: 100px;">
-        <h1 class="mb-4">See other members from our site</h1>
-        <?php 
-        // upit u bazi da izlista sve korisnike osim logovanog korisnika
-            $q = "SELECT `u`.`id`, `u`.`username`,
-                    CONCAT(`p`.`first_name`, ' ', `p`.`last_name`) AS `full_name`,
-                    `p`.`profile_image`, `p`.`gender`
-                    FROM `users`AS `u`
-                    LEFT JOIN `profiles` AS `p`
-                    ON `u`.`id` = `p`.`id_user`
-                    WHERE `u`.`id` != $id
-                    ORDER BY `full_name`;
-                    "; // prikazujem sve korisnike osim logovanog
-            $result = $conn->query($q);
-            if($result->num_rows == 0)
-            {
-        ?>
-                <div class="error">No other users in database : </div>
-        <?php  
-            }
-            else
-            {
-        ?>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Image</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-        <?php
-                while($row = $result->fetch_assoc())
-                {
-                    echo "<tr><td>";
-                    if($row["full_name"] !== NULL)
+        <div class="card">
+                <h1 class="mb-4">See other members from our site</h1>
+            <div class="card-body">
+                <?php 
+                // upit u bazi da izlista sve korisnike osim logovanog korisnika
+                    $q = "SELECT `u`.`id`, `u`.`username`,
+                            CONCAT(`p`.`first_name`, ' ', `p`.`last_name`) AS `full_name`,
+                            `p`.`profile_image`, `p`.`gender`
+                            FROM `users`AS `u`
+                            LEFT JOIN `profiles` AS `p`
+                            ON `u`.`id` = `p`.`id_user`
+                            WHERE `u`.`id` != $id
+                            ORDER BY `full_name`;
+                            "; // prikazujem sve korisnike osim logovanog
+                    $result = $conn->query($q);
+                    if($result->num_rows == 0)
                     {
-                        $userId = $row['id'];
-                        $profileUrl = "show_profile.php?id={$userId}";
-                        echo '<a href="' . $profileUrl . '">' . $row["full_name"] . '</a>';
+                ?>
+                        <div class="error">No other users in database : </div>
+                <?php  
                     }
                     else
                     {
-                        echo $row["username"];
-                    }
-                    echo "</td><td>";
-                    // Prikazivanje slike ili avatara korisnika
-                    if (!empty($row['profile_image'])) 
-                    {
-                        // Ako korisnik ima sliku profila, prikazi je
-                        echo "<img src='{$row['profile_image']}' alt='Profile Image' class='profile-image' style='width: 100px;'>";
-                    }
-                    else 
-                    {
-                        // Ako korisnik nema sliku profila, prikazi odgovarajuci avatar na osnovu pola
-                        $gender = $row['gender'] ?? ""; // null coalescing operator
-/*                         if (isset($row['gender'])) {
-                            $gender = $row['gender'];
-                        } else {
-                            $gender = "";
-                        } */
-                        $defaultAvatar = "";
+                ?>
+                        <table class="table mx-auto">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Image</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                <?php
+                        while($row = $result->fetch_assoc())
+                        {
+                            echo "<tr><td>";
+                            if($row["full_name"] !== NULL)
+                            {
+                                $userId = $row['id'];
+                                $profileUrl = "show_profile.php?id=" . $userId;
+                                echo '<a href="' . $profileUrl . '">' . $row["full_name"] . '</a>';
+                            }
+                            else
+                            {
+                                echo $row["username"];
+                            }
+                            echo "</td><td>";
+                            // Prikazivanje slike ili avatara korisnika
+                            if (!empty($row['profile_image'])) 
+                            {
+                                // Ako korisnik ima sliku profila, prikazi je
+                                echo "<img src='{$row['profile_image']}' alt='Profile Image' class='profile-image' style='width: 100px;'>";
+                            }
+                            else 
+                            {
+                                // Ako korisnik nema sliku profila, prikazi odgovarajuci avatar na osnovu pola
+                                $gender = $row['gender'] ?? ""; // null coalescing operator
+        /*                         if (isset($row['gender'])) {
+                                    $gender = $row['gender'];
+                                } else {
+                                    $gender = "";
+                                } */
+                                $defaultAvatar = "";
 
-                        if ($gender === "m") 
-                        {
-                            $defaultAvatar = "avatar/male_avatar.png";
-                        } 
-                        elseif ($gender === "f") 
-                        {
-                            $defaultAvatar = "avatar/female_avatar.png";
-                        } 
-                        else 
-                        {
-                            $defaultAvatar = "avatar/other_avatar.png";
-                        }
+                                if ($gender === "m") 
+                                {
+                                    $defaultAvatar = "avatar/male_avatar.png";
+                                } 
+                                elseif ($gender === "f") 
+                                {
+                                    $defaultAvatar = "avatar/female_avatar.png";
+                                } 
+                                else 
+                                {
+                                    $defaultAvatar = "avatar/other_avatar.png";
+                                }
 
-                        echo "<img src='{$defaultAvatar}' alt='Default Avatar' class='profile-image' style='width: 100px;'>";
-                    }
-                    echo "</td>";
-                    // ovde cemo linkove za pracenje korisnika
-                    $friendId = $row["id"];
-                    echo "<td>
-                    <div class='follow-links'>";
-                
-                    if (!in_array($friendId, $niz1)) // da li vrednost $friendId postoji u $niz1, ako ne potoji idemo u drugi if
-                    {
-                        if (!in_array($friendId, $niz2))  // da li vrednost $friendId, postoji u $niz2, ako ne, postavlja e text na Follow
-                        {
-                            $text = "Follow";
-                        } 
-                        else 
-                        {
-                            $text = "Follow back"; // Ako se vrednost $friendId nalazi u nizu $niz2, to znaci da korisnik prati korisnika sa $friendId, pa se postavlja vrednost varijable $text na "Follow back".
+                                echo "<img src='{$defaultAvatar}' alt='Default Avatar' class='profile-image' style='width: 100px;'>";
+                            }
+                            echo "</td>";
+                            // ovde cemo linkove za pracenje korisnika
+                            $friendId = $row["id"];
+                            echo "<td>
+                            <div class='follow-links'>";
+                        
+                            if (!in_array($friendId, $niz1)) // da li vrednost $friendId postoji u $niz1, ako ne potoji idemo u drugi if
+                            {
+                                if (!in_array($friendId, $niz2))  // da li vrednost $friendId, postoji u $niz2, ako ne, postavlja e text na Follow
+                                {
+                                    $text = "Follow";
+                                } 
+                                else 
+                                {
+                                    $text = "Follow back"; // Ako se vrednost $friendId nalazi u nizu $niz2, to znaci da korisnik prati korisnika sa $friendId, pa se postavlja vrednost varijable $text na "Follow back".
+                                }
+                                echo "<a href='followers.php?friend_id=$friendId' class='follow-link'>$text</a>";
+                            } 
+                            else // Ako se vrednost $friendId nalazi u nizu $niz1, to znaci da korisnik vec prati korisnika sa $friendId, pa se izvrsava kod unutar else bloka.
+                            {
+                                echo "<a href='followers.php?unfriend_id=$friendId' class='follow-link'>Unfollow</a>";
+                            }
+                            
+                            echo "</div>
+                            </td>";
+                            echo "</tr>";
                         }
-                        echo "<a href='followers.php?friend_id=$friendId' class='follow-link'>$text</a>";
-                    } 
-                    else // Ako se vrednost $friendId nalazi u nizu $niz1, to znaci da korisnik vec prati korisnika sa $friendId, pa se izvrsava kod unutar else bloka.
-                    {
-                        echo "<a href='followers.php?unfriend_id=$friendId' class='follow-link'>Unfollow</a>";
+                ?>
+                            </tbody>
+                        </table>
+                <?php
                     }
-                    
-                    echo "</div>
-                    </td>";
-                    echo "</tr>";
-                }
-        ?>
-                    </tbody>
-                </table>
-        <?php
-            }
-        ?>
-        <div class="text-center">
-            Return to <a href="index.php" class="btn btn-primary ml-2">home page</a>.
-            <div class="mt-4"></div> <!-- Prazan prostor ispod dugmeta -->
+                ?>
+            <div class="float-end">
+                Return to <a href="index.php" class="btn btn-primary ml-2">home page</a>.
+            </div>
         </div>
     </div>
 </body>
