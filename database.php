@@ -36,7 +36,7 @@ $sql .= "CREATE TABLE IF NOT EXISTS `followers`(
 ) ENGINE = InnoDB;
 ";
 
-$sql .= "ALTER TABLE `profiles` ADD COLUMN `profile_image` VARCHAR(255)";
+$sql .= "ALTER TABLE `profiles` ADD COLUMN `profile_image` VARCHAR(255)"; // `.=`  desna strana izraza se konkatenira (spaja) sa vrednošću leve strane i rezultat se ponovo dodeljuje promenljivoj koja se nalazi s leve strane.
 
 // ukljucili smo file connection.php, tako da imamo na raspolaganju i objekat $conn
 // kada imamo neki upit ka bazi uvek koristimo objekat $conn i pozivamo query ili multi_query, ove metode omogucavaju izvrsavanje SQL upita, jedan ili vise njih istovremeno

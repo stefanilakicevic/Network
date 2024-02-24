@@ -9,7 +9,7 @@
     // u nekim verzijama PHP-a, moze da dodje do greske prilikom pogresne konekcije, pa smo dopisali  drugu liniju koda, s tim sto meni nije pravilo gresku, pa sam zakomentarisala
     if($conn->connect_error)
     {
-        // header("Location: error.php?m=" . $conn->connect_error); // ako je doslo do greske prebaci me na ovo stranicu
+        // header("Location: error.php?m=" . $conn->connect_error); // ako je doslo do greske prebaci me na ovo stranicu; '?' označava početak upita (query) stringa u URL-u. 'm=' predstavlja naziv parametra koji se šalje kao deo URL-a. korisnik će biti preusmeren na "error.php" stranicu, a u URL-u će se nalaziti parametar "m" sa vrednošću greške koja se dobila pri povezivanju na bazu podataka. 
         die("Neuspela konekcija: " . $conn->connect_error); //ili umesto headera da stavimo die
     }
     $conn->set_charset("utf8"); // ako je sve u redu postavimo utf8 (iako smo postavili u mysqlu utf32)
